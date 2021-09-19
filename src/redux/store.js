@@ -1,23 +1,26 @@
-import { createStore, combineReducers } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import contactsReducer from './reducer';
+import logger from 'redux-logger';
 
-const rootReducer = combineReducers({
-  contacts: contactsReducer,
+const middleware = [...getDefaultMiddleware(), logger];
+
+const store = configureStore({
+  reducer: {
+    contacts: contactsReducer,
+  },
+  middleware,
+  devTools: process.env.NODE_ENV === 'development',
 });
-const store = createStore(rootReducer, composeWithDevTools());
+
 export default store;
 
-// const initialState = {
-//   contacts: {
-//     items: [],
-//     filter: '',
-//   },
-// };
+//=================================REDUX==================================
 
-// const reducer = (state = initialState, { type, payload }) => {
-//   return state;
-// };
+// import { createStore, combineReducers } from 'redux';
+// import { composeWithDevTools } from 'redux-devtools-extension';
 
-// const store = createStore(reducer, composeWithDevTools());
+// const rootReducer = combineReducers({
+//   contacts: contactsReducer,
+// });
+// const store = createStore(rootReducer, composeWithDevTools());
 // export default store;

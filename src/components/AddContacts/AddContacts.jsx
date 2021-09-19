@@ -16,6 +16,7 @@ const AddContacts = ({ onSubmit }) => {
   };
   const handleSubmit = e => {
     e.preventDefault();
+
     onSubmit(name, phone);
     setName('');
     setPhone('');
