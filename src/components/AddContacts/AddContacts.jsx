@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { connect } from 'react-redux';
+import actions from '../../redux/actions';
 import s from './AddContacts.module.css';
 import PropTypes from 'prop-types';
 
-export default function AddContacts({ onSubmit }) {
+const AddContacts = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
@@ -14,7 +16,7 @@ export default function AddContacts({ onSubmit }) {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    onSubmit({ name, phone });
+    onSubmit(name, phone);
     setName('');
     setPhone('');
   };
@@ -57,7 +59,12 @@ export default function AddContacts({ onSubmit }) {
       </button>
     </form>
   );
-}
+};
+
+const mapDispatchToProps = dispatch => ({
+  onSubmit: (name, number) => dispatch(actions.addContact(name, number)),
+});
+export default connect(null, mapDispatchToProps)(AddContacts);
 AddContacts.propTypes = {
   name: PropTypes.string,
   phone: PropTypes.string,
